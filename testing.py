@@ -1,5 +1,7 @@
+import time, serial, warnings, re, requests, smtplib, json, urllib
 from datetime import date
-import time, serial, warnings, re
+from email.mime.text import MIMEText
+
 
 def read_unread_sms(port, baud_rate=115200, timeout=5):
     """
@@ -116,11 +118,51 @@ def read_sms_based_on_index(port, baud_rate=115200, timeout=5, index=0):
         # This block always runs, ensuring the file is closed
         phone.close()
 
+def send_teams_alert(message, webhook_url):
+    payload = {
+        "type": "message",
+        "attachments": [
+            {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+                    "type": "AdaptiveCard",
+                    "body": [{"type": "TextBlock", "text": message}],
+                    "$schema": "http://adaptivecards.io",
+                    "version": "1.0"
+                }
+            }
+        ]
+    }
+    
+    # Setting verify=False bypasses the SSL verification error
+    response = requests.post(
+        webhook_url, 
+        data=json.dumps(payload), 
+        headers={'Content-Type': 'application/json'},
+        verify=False 
+    )
+    return response.status_code
+
+def send_email(subject, body, sender, recipients, password):
+    msg = MIMEText(body)
+    msg['Subject'] = subject
+    msg['From'] = sender
+    msg['To'] = ', '.join(recipients)
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
+       smtp_server.login(sender, password)
+       smtp_server.sendmail(sender, recipients, msg.as_string())
+    print("Message sent!")
+    
 
 # Example usage:
 # On Linux, the port might be '/dev/ttyUSB0' or similar
 # On Windows, the port might be 'COM3' or similar
 # Replace '/dev/ttyUSB0' with your actual port name
 # read_unread_sms('COM8')
-read_sms_based_on_index('COM8', index=62)
+
 # read_sms_based_on_index('COM8', index=65)
+
+# read_sms_based_on_index('COM8', index=62)
+status = send_teams_alert(message="The new generated OTP by GSM is 113356", webhook_url="https://defaultbd29b3abaaa2425ab8829e7f73283c.a6.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/69ba0e4445594312a12a118155432ba4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Q0Hg0RpRbfcIo7RlE2EMw2t-Fmfd_nGEE9rm6M-et0s")
+print(f"Status: {status}")
+# send_email(subject="Email Subject", body="This is the body of the text message", sender="hung.nguyenkim.1983@gmail.com", recipients=["gsm_hma_v1@mailnesia.com", "gsm_hma_v2@mailnesia.com"], password="Hungnk190")
