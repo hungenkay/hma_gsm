@@ -163,6 +163,6 @@ def send_email(subject, body, sender, recipients, password):
 # read_sms_based_on_index('COM8', index=65)
 
 # read_sms_based_on_index('COM8', index=62)
-status = send_teams_alert(message="The new generated OTP by GSM is 113356", webhook_url="https://defaultbd29b3abaaa2425ab8829e7f73283c.a6.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/69ba0e4445594312a12a118155432ba4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Q0Hg0RpRbfcIo7RlE2EMw2t-Fmfd_nGEE9rm6M-et0s")
+status = send_teams_alert(message="The new generated OTP by GSM is 113355", webhook_url="https://defaultbd29b3abaaa2425ab8829e7f73283c.a6.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/69ba0e4445594312a12a118155432ba4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Q0Hg0RpRbfcIo7RlE2EMw2t-Fmfd_nGEE9rm6M-et0s")
 print(f"Status: {status}")
 # send_email(subject="Email Subject", body="This is the body of the text message", sender="hung.nguyenkim.1983@gmail.com", recipients=["gsm_hma_v1@mailnesia.com", "gsm_hma_v2@mailnesia.com"], password="Hungnk190")
