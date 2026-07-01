@@ -121,7 +121,7 @@ def send_teams_alert(message, webhook_url):
                 "contentType": "application/vnd.microsoft.card.adaptive",
                 "content": {
                     "type": "AdaptiveCard",
-                    "body": [{"type": "TextBlock", "text": message}],
+                    "body": [{"type": "TextBlock", "text": message, "wrap": True}],
                     "$schema": "http://adaptivecards.io",
                     "version": "1.0"
                 }
