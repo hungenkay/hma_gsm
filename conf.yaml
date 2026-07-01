@@ -1,8 +1,8 @@
 sim1:
   baud_rate: 115200
   timeout: 5
-  port_name: 'COM8'
+  port_name: 'COM4'
   default_sleep_time: 0.5
   modem_sleep_time: 3
-  sender_numbers: '38069,62823'
+  sender_numbers: '38069,62823,52018'
   webhook_url: 'https://defaultbd29b3abaaa2425ab8829e7f73283c.a6.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/69ba0e4445594312a12a118155432ba4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Q0Hg0RpRbfcIo7RlE2EMw2t-Fmfd_nGEE9rm6M-et0s'
